@@ -1,3 +1,6 @@
+#ifndef CDATAFRAME_H
+#define CDATAFRAME_H
+
 #include "list.h"
 #include "column.h"
 
@@ -14,18 +17,26 @@ typedef list CDATAFRAME;
 CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size);
 
 /**
- * @brief : Fill the CDATAFRAME
- * @param1 : The CDATAFRAME to fill
+ * @brief : Create a empty CDATAFRAME
+ * @return : Pointer to created CDATAFRAME
+ */
+CDATAFRAME *create_empty_cdataframe();
+
+/**
+ * @brief : Fill the CDATAFRAME with user input
  * @return : Pointer to the full CDATAFRAME
  */
-CDATAFRAME* fill_cdataframe(CDATAFRAME* cdataframe);
+CDATAFRAME* fill_cdataframe();
 
 /**
  * @brief : Hard fill CDATAFRAME
- * @param1 : The CDATAFRAME to fill
+ * @param 1 : Column type
+ * @param 2 : Number of column
+ * @param 3 : Data
+ * @param 4 : Size of each column
  * @return : Pointer to the CDATAFRAME
  */
-CDATAFRAME* fill_hard_cdataframe(CDATAFRAME* cdataframe);
+CDATAFRAME* fill_hard_cdataframe(ENUM_TYPE* types, int size, char*** data, int* cols_size);
 
 // Printing
 
@@ -43,7 +54,32 @@ void print_cdataframe(CDATAFRAME* cdataframe);
  */
 void print_partial_cdataframe(CDATAFRAME* cdataframe, int row, int col);
 
+/**
+ * @brief : Print a value from the CDATAFRAME
+ * @param1 : The CDATAFRAME
+ * @param2 : Row of value to print
+ * @param3 : Column of value to print
+ */
+void print_cdataframe_value(CDATAFRAME* cdataframe, int row, int col);
+
+/**
+ * @brief : Print a value from the CDATAFRAME
+ * @param1 : The CDATAFRAME
+ * @param2 : Row of value to print
+ * @param3 : Column of value to print
+ * @return : Convert and return the value
+ */
+char* get_cdataframe_value(CDATAFRAME* cdataframe, int row, int col);
+
 // Usual operations
+
+/**
+ * @brief : Print a value from the CDATAFRAME
+ * @param1 : The CDATAFRAME
+ * @param2 : Number of the column
+ * @return : The column type
+ */
+ENUM_TYPE get_col_type(CDATAFRAME* cdataframe, int col);
 
 /**
  * @brief : Add a row to the CDATAFRAME
@@ -73,7 +109,7 @@ void add_col(CDATAFRAME* cdataframe, COLUMN* column);
  * @param1: Pointer to the CDataframe
  * @param2: Column name
  */
-void delete_column(CDATAFRAME *cdf, char *col_name);
+void cdataframe_delete_column(CDATAFRAME *cdf, char *col_name);
 
 /**
  * @brief : Rename a column of the CDATAFRAME
@@ -184,3 +220,5 @@ CDATAFRAME* load_from_csv(char *file_name, ENUM_TYPE *dftype, int size);
  * it will be overwritten
  */
 void save_into_csv(CDATAFRAME *cdf, char *file_name);
+
+#endif

@@ -1,4 +1,13 @@
-#define REALOC_SIZE 256;
+#ifndef COLUMN_H
+#define COLUMN_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#define REALOC_SIZE 256
+#define STRING_SIZE 256
 #define ASC 0
 #define DESC 1
 
@@ -63,6 +72,14 @@ int insert_value(COLUMN *col, void *value);
 void delete_column(COLUMN **col);
 
 /**
+ * @brief: Delete a value from a column
+ * @param1: Pointer to the column
+ * @param2: Position of the value to delete
+ * @return: 1 if the value is correctly deleted 0 otherwise
+ */
+int delete_value(COLUMN *col, int pos);
+
+/**
  * @brief: Convert a value into a string
  * @param1: Pointer to the column
  * @param2: Position of the value in the data array
@@ -72,10 +89,24 @@ void delete_column(COLUMN **col);
 void convert_value(COLUMN *col, unsigned long long int i, char *str, int size);
 
 /**
+ * @brief: Print a value
+ * @param1: Pointer to the column
+ * @param2: Position of the value in the data array
+ */
+void print_value(COLUMN *col, unsigned long long int row);
+
+/**
  * @brief: Display the content of a column
  * @param: Pointer to the column to display
  */
 void print_col(COLUMN* col);
+
+/**
+ * @brief: Display the content of a column
+ * @param 1: Pointer to the column to display
+ * @param 2 : Number of row to print
+ */
+void print_partial_col(COLUMN* col, int row);
 
 /**
  * @brief : Count occurrences of x
@@ -123,30 +154,4 @@ int col_count_equals_to(COLUMN* col, void* x);
   */
 void print_col_by_index(COLUMN *col);
 
-/**
- * @brief: Remove the index of a column
- * @param1: Pointer to the column
- */
-void erase_index(COLUMN *col);
-
-/**
- * @brief: Check if an index is correct
- * @param1: Pointer to the column
- * @return: 0: index not existing, -1: the index exists but invalid, 1: the index is correct
- */
-int check_index(COLUMN *col);
-
-/**
- * @brief: Update the index
- * @param1: Pointer to the column
- */
-void update_index(COLUMN *col);
-
-/**
- * @brief: Check if a value exists in a column
- * @param1: Pointer to the column
- * @param2: Pointer to the value to search for
- * @return: -1: column not sorted, 0: value not found 1: value found
- */
-int search_value_in_column(COLUMN *col, void *val);
-
+#endif
